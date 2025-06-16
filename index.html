@@ -4,22 +4,33 @@
   <meta charset="utf-8">
   <title>Hello WebGL</title>
   <style>
-    body { margin: 0; overflow: hidden; }
-    canvas { display: block; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+    }
+    #glCanvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
     #overlay {
       position: absolute;
       top: 20px;
       left: 20px;
       color: white;
-      font-family: sans-serif;
       font-size: 24px;
-      z-index: 10;
+      font-family: sans-serif;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-  <div id="overlay">Hello, WebGL!</div>
   <canvas id="glCanvas"></canvas>
+  <div id="overlay">Hello, WebGL!</div>
 
   <script>
     const canvas = document.getElementById("glCanvas");
@@ -28,12 +39,13 @@
 
     const gl = canvas.getContext("webgl");
     if (!gl) {
-      alert("WebGL not supported.");
+      alert("WebGL not supported in your browser.");
+    } else {
+      // Set the clear color to black, fully opaque
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      // Clear the color buffer with the specified clear color
+      gl.clear(gl.COLOR_BUFFER_BIT);
     }
-
-    // Set clear color to black and clear the canvas
-    gl.clearColor(0.0, 0.0, 0.0, 1.0); // RGBA
-    gl.clear(gl.COLOR_BUFFER_BIT);
   </script>
 </body>
 </html>
